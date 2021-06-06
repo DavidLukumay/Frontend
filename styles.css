@@ -116,3 +116,9 @@ form button:hover {
     width: 100px;
     text-transform: uppercase;
 }
+
+/* navbar */
+
+.navbar-nav .nav-item.active > a{
+    color: crimson !important;
+}
