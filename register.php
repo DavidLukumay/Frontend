@@ -25,7 +25,8 @@
   if(!$insertingData){
       echo "Inserting data to the Db failed";
   } else{
-      echo "Yaaay";
+    echo '<script type="text/javascript">alert("Registration Successful!");</script>'; 
+    header("Location:login.html");
   }
 
 
