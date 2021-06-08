@@ -2,7 +2,8 @@
 <html>
 
 <head>
-  <title> Sign In - UNIHUB</title>
+  
+  <title>UNIHUB - Register</title>
   <!-- 
         <link rel="stylesheet" href="styles/bootstrap.min.css">
         <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -19,8 +20,40 @@
 
   <!--Styles CSS-->
   <link rel="stylesheet" href="styles.css">
+  
 
-  <title>UNIHUB</title>
+  <script type = "text/javascript">
+    
+     function validate() {
+     if( form.username.value == "" ) {
+           alert( "Please provide your Username!" );
+           document.form.username.focus();
+           return false;
+        }
+    var regex = /^[a-zA-Z]+$/;
+     if(regex.test(form.username.value) == false){
+       alert("Username must be in alphabets only");
+       document.form.username.focus()
+       return false;
+    }
+  //   if(password.length  &&  confirmPassword.length < 8) {  
+  //     alert("Password length must be atleast 8 characters");  
+  //     document.form.password.focus()
+     
+  // }  
+
+   var pass = document.getElementById("password").value;
+   var pass1= document.getElementById("confirmPassword").value;
+      
+      if(pass != pass1){
+       alert("Passwords do not match");
+       return false;
+     }
+     
+        return( true );
+    
+ }
+ </script>  
 </head>
 
 <body style="font-size: 16px;;">
@@ -60,7 +93,7 @@
         <h4>REGISTER</h4>
       </center>
   
-      <form action="register.php" method="post">
+      <form action="register.php" method="post" name=form onsubmit = return(validate());>
         
         <label for="username">Username </label> <br>
         <input type="text" name="username" class="input-fields" required>
@@ -68,16 +101,22 @@
         <label for="email">Email </label> <br>
         <input type="email" name="email" class="input-fields" required> <br><br>
         
-        <label for="programme">Programme </label> <br>
-        <input type="text" name="programme" class="input-fields" required> <br><br>
-  
+        <label for="programme">Programme </label> <br> <br>
+        
+        <select name="programme" class="input-fields">
+          <option value="Bsc. in CS">Bsc in Computer scince</option>
+          <option value="BSc. BIT">Bsc in  Business Information Technology</option>
+          <option value="BSc. TE">Bsc in Telecommunications Engineering</option>
+          <option value="BSc. EE">Bsc in Electronics Engineering</option>
+          <option value="BSc. CE">Bsc in Computer Engineering</option>
+        </select><br><br>
   
         <label for="password">Password </label> <br>
-        <input type="password" name="password" class="input-fields" required>
+        <input type="password" name="password" id="password" class="input-fields" min=8 required>
         <br><br>
   
         <label for="username">Confirm password </label> <br>
-        <input type="password" name="confirmPassword" class="input-fields" required>
+        <input type="password" name="confirmPassword" id="confirmPassword" class="input-fields" required>
         <br><br>
   
   
