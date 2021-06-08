@@ -2,58 +2,19 @@
 <html>
 
 <head>
+  <title> Sign In - UNIHUB</title>
   
   <title>UNIHUB - Register</title>
-  <!-- 
-        <link rel="stylesheet" href="styles/bootstrap.min.css">
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link rel="stylesheet" href="styles.css">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap" rel="stylesheet"> -->
-  <!-- Required meta tags -->
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="styles/main.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-
   <!--Styles CSS-->
   <link rel="stylesheet" href="styles.css">
-  
 
-  <script type = "text/javascript">
-    
-     function validate() {
-     if( form.username.value == "" ) {
-           alert( "Please provide your Username!" );
-           document.form.username.focus();
-           return false;
-        }
-    var regex = /^[a-zA-Z]+$/;
-     if(regex.test(form.username.value) == false){
-       alert("Username must be in alphabets only");
-       document.form.username.focus()
-       return false;
-    }
-  //   if(password.length  &&  confirmPassword.length < 8) {  
-  //     alert("Password length must be atleast 8 characters");  
-  //     document.form.password.focus()
-     
-  // }  
+  <title>UNIHUB</title>
 
-   var pass = document.getElementById("password").value;
-   var pass1= document.getElementById("confirmPassword").value;
-      
-      if(pass != pass1){
-       alert("Passwords do not match");
-       return false;
-     }
-     
-        return( true );
-    
- }
- </script>  
 </head>
 
 <body style="font-size: 16px;;">
@@ -70,8 +31,6 @@
           <li class="nav-item">
             <a class="nav-link ms-lg-4" id="item" href="index.html">HOME</a>
           </li>
-
-
           <li class="nav-item ms-lg-4">
             <a class="nav-link " id="item" href="login.html">SIGN IN</a>
           </li>
@@ -92,37 +51,29 @@
       <center>
         <h4>REGISTER</h4>
       </center>
-  
-      <form action="register.php" method="post" name=form onsubmit = return(validate());>
-        
-        <label for="username">Username </label> <br>
-        <input type="text" name="username" class="input-fields" required>
+      <form onsubmit="return validateOnRegister()" action="register.php" name="registerForm" method="post">
+        <input type="email" name="email" class="input-fields"><br>
+        <div class="error" id="emailErr"></div><br>
+        <label for="programme">Programme </label> <br>
+        <input type="text" name="programme" class="input-fields"> <br>
+        <!-- <div class="error" id="programmeErr"></div> -->
+        <br>
+
+
+        <label for="passwordErr_1">Password </label> <br>
+        <input type="password" name="passwordErr_1" class="input-fields"><br>
+        <div class="error" id="passwordErr1"></div>
         <br><br>
-        <label for="email">Email </label> <br>
-        <input type="email" name="email" class="input-fields" required> <br><br>
-        
-        <label for="programme">Programme </label> <br> <br>
-        
-        <select name="programme" class="input-fields">
-          <option value="Bsc. in CS">Bsc in Computer scince</option>
-          <option value="BSc. BIT">Bsc in  Business Information Technology</option>
-          <option value="BSc. TE">Bsc in Telecommunications Engineering</option>
-          <option value="BSc. EE">Bsc in Electronics Engineering</option>
-          <option value="BSc. CE">Bsc in Computer Engineering</option>
-        </select><br><br>
-  
-        <label for="password">Password </label> <br>
-        <input type="password" name="password" id="password" class="input-fields" min=8 required>
+
+        <label for="passwordErr_2">Confirm password </label> <br>
+        <input type="password" name="passwordErr_2" class="input-fields"><br>
+        <div class="error" id="passwordErr2"></div>
         <br><br>
-  
-        <label for="username">Confirm password </label> <br>
-        <input type="password" name="confirmPassword" id="confirmPassword" class="input-fields" required>
-        <br><br>
-  
-  
+
+
         <center>
           <button class="btn register" type="submit">REGISTER</button>
-  
+
           <br><br><br>
           <a href="login.html" style="color:white;text-decoration: none;">
             Already have an account? Sign In
@@ -132,11 +83,70 @@
     </div>
   </div>
 
-  
+
   <!-- <footer class="container-fluid"></footer> -->
 
-  <script src="scripts/bootstrap.min.js"></script>
-  <script src="scripts/jquery.js"></script>
+  <script>
+    // display the error
+    function showError(elmId, errMsg) {
+      document.getElementById(elmId).innerHTML = errMsg;
+    }
+
+
+    function validateOnRegister() {
+      var name = document.registerForm.username.value;
+      console.log(name)
+      var email = document.registerForm.email.value;
+      var password1 = document.registerForm.passwordErr_1.value;
+      var password2 = document.registerForm.passwordErr_2.value;
+      // var program = document.registerForm.program.value;
+
+      var nameErr = programmeErr = passwordErr = emailErr = passwordErr1 = passwordErr2 = true;
+
+      //validate name
+      if (name == "") {
+        console.log("Please enter your name")
+        showError("nameErr", "Please enter your name")
+      } else {
+        var regex = /^[a-zA-Z\s]+$/;
+        console.log(regex.test(name))
+        if (regex.test(name) === false) {
+          showError("nameErr", "Please Enter a valid name")
+        } else {
+          showError("nameErr", "")
+          nameErr = false
+        }
+      }
+
+      if (email == "") {
+        showError("emailErr", "Please enter your email adress")
+      } else {
+        var regex = /^\S+@\S+\.\S+$/;
+        if (regex.test(email) === false) {
+          showError("emailErr", "Please enter valid email adress")
+        } else {
+          showError("emailErr", "")
+          emailErr = false
+        }
+      }
+
+      if (password1 != password2) {
+        showError("passwordErr2", "Password do not match!")
+      } else {
+        var maxLength = 8;
+        if ((password1.length && password2.length) < maxLength) {
+          showError("passwordErr2", "Password must be at least 8 characters long.")
+        } else {
+          showError("passwordErr2", "")
+          nameErr = false
+        }
+      }
+
+      if ((programmeErr || passwordErr || emailErr || passwordErr1 || passwordErr2) == true) {
+        return false
+      }
+    }
+  </script>
 </body>
 
 </html>

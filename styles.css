@@ -268,3 +268,8 @@ form button:hover{
     text-align: center;
 }
 
+
+/* form validation */
+.error {
+    color: crimson;
+}

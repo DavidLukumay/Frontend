@@ -17,7 +17,6 @@
       echo "Failed to connect to the Db" . mysqli_error($connection);
   } 
 
-
   $query = "INSERT INTO users (username, email, programme ,password)  VALUES ('$username' , '$email' , '$programme' , '$password')"; 
 
   $insertingData = mysqli_query($connection , $query);
@@ -28,9 +27,6 @@
     echo '<script type="text/javascript">alert("Registration Successful!");</script>'; 
     header("Location:login.html");
   }
-
-
-
   
  }
 
@@ -39,7 +35,5 @@
      $data = stripslashes($data);
      $data = htmlspecialchars($data);
      return $data;
-
  }
-
 ?>
