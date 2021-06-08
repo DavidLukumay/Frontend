@@ -60,13 +60,13 @@
         <br>
 
 
-        <label for="password">Password </label> <br>
-        <input type="password" name="password" class="input-fields"><br>
+        <label for="passwordErr_1">Password </label> <br>
+        <input type="password" name="passwordErr_1" class="input-fields"><br>
         <div class="error" id="passwordErr1"></div>
         <br><br>
 
-        <label for="username">Confirm password </label> <br>
-        <input type="password" name="confirmPassword" class="input-fields"><br>
+        <label for="passwordErr_2">Confirm password </label> <br>
+        <input type="password" name="passwordErr_2" class="input-fields"><br>
         <div class="error" id="passwordErr2"></div>
         <br><br>
 
@@ -97,7 +97,8 @@
       var name = document.registerForm.username.value;
       console.log(name)
       var email = document.registerForm.email.value;
-      var password = document.registerForm.password.value;
+      var password1 = document.registerForm.passwordErr_1.value;
+      var password2 = document.registerForm.passwordErr_2.value;
       // var program = document.registerForm.program.value;
 
       var nameErr = programmeErr = passwordErr = emailErr = passwordErr1 = passwordErr2 = true;
@@ -117,23 +118,35 @@
         }
       }
 
-      if (email = "") {
+      if (email == "") {
         showError("emailErr", "Please enter your email adress")
       } else {
-        var regex = /^\$+@\S+\.\S+$/;
+        var regex = /^\S+@\S+\.\S+$/;
         if (regex.test(email) === false) {
           showError("emailErr", "Please enter valid email adress")
         } else {
           showError("emailErr", "")
+          emailErr = false
+        }
+      }
+
+      if (password1 != password2) {
+        showError("passwordErr2", "Password do not match!")
+      } else {
+        var maxLength = 8;
+        if ((password1.length && password2.length) < maxLength) {
+          showError("passwordErr2", "Password must be at least 8 characters long.")
+        } else {
+          showError("passwordErr2", "")
           nameErr = false
         }
       }
 
-      if (programmeErr || passwordErr || emailErr || passwordErr1 || passwordErr2 || true) {
+      if ((programmeErr || passwordErr || emailErr || passwordErr1 || passwordErr2) == true) {
         return false
       }
     }
-  </script> 
+  </script>
 </body>
 
 </html>
