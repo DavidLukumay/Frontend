@@ -17,7 +17,6 @@
       echo "Failed to connect to the Db" . mysqli_error($connection);
   } 
 
-
   $query = "INSERT INTO users (username, email, programme ,password)  VALUES ('$username' , '$email' , '$programme' , '$password')"; 
 
   $insertingData = mysqli_query($connection , $query);
@@ -27,9 +26,6 @@
   } else{
       echo "Yaaay";
   }
-
-
-
   
  }
 
@@ -40,5 +36,3 @@
      return $data;
 
  }
-
-?>

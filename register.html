@@ -3,23 +3,12 @@
 
 <head>
   <title> Sign In - UNIHUB</title>
-  <!-- 
-        <link rel="stylesheet" href="styles/bootstrap.min.css">
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link rel="stylesheet" href="styles.css">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap" rel="stylesheet"> -->
-  <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="styles/main.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-
   <!--Styles CSS-->
   <link rel="stylesheet" href="styles.css">
-
   <title>UNIHUB</title>
 </head>
 
@@ -37,8 +26,6 @@
           <li class="nav-item">
             <a class="nav-link ms-lg-4" id="item" href="index.html">HOME</a>
           </li>
-
-
           <li class="nav-item ms-lg-4">
             <a class="nav-link " id="item" href="login.html">SIGN IN</a>
           </li>
@@ -59,31 +46,34 @@
       <center>
         <h4>REGISTER</h4>
       </center>
-  
-      <form action="register.php" method="post">
-        
+      <form onsubmit="return validateOnRegister()" action="register.php" name="registerForm" method="post">
         <label for="username">Username </label> <br>
-        <input type="text" name="username" class="input-fields" required>
+        <input type="text" name="username" class="input-fields"><br>
+        <div class="error" id="nameErr"></div>
         <br><br>
         <label for="email">Email </label> <br>
-        <input type="email" name="email" class="input-fields" required> <br><br>
-        
+        <input type="email" name="email" class="input-fields"><br>
+        <div class="error" id="emailErr"></div><br>
         <label for="programme">Programme </label> <br>
-        <input type="text" name="programme" class="input-fields" required> <br><br>
-  
-  
+        <input type="text" name="programme" class="input-fields"> <br>
+        <!-- <div class="error" id="programmeErr"></div> -->
+        <br>
+
+
         <label for="password">Password </label> <br>
-        <input type="password" name="password" class="input-fields" required>
+        <input type="password" name="password" class="input-fields"><br>
+        <div class="error" id="passwordErr1"></div>
         <br><br>
-  
+
         <label for="username">Confirm password </label> <br>
-        <input type="password" name="confirmPassword" class="input-fields" required>
+        <input type="password" name="confirmPassword" class="input-fields"><br>
+        <div class="error" id="passwordErr2"></div>
         <br><br>
-  
-  
+
+
         <center>
           <button class="btn register" type="submit">REGISTER</button>
-  
+
           <br><br><br>
           <a href="login.html" style="color:white;text-decoration: none;">
             Already have an account? Sign In
@@ -93,11 +83,57 @@
     </div>
   </div>
 
-  
+
   <!-- <footer class="container-fluid"></footer> -->
 
-  <script src="scripts/bootstrap.min.js"></script>
-  <script src="scripts/jquery.js"></script>
+  <script>
+    // display the error
+    function showError(elmId, errMsg) {
+      document.getElementById(elmId).innerHTML = errMsg;
+    }
+
+
+    function validateOnRegister() {
+      var name = document.registerForm.username.value;
+      console.log(name)
+      var email = document.registerForm.email.value;
+      var password = document.registerForm.password.value;
+      // var program = document.registerForm.program.value;
+
+      var nameErr = programmeErr = passwordErr = emailErr = passwordErr1 = passwordErr2 = true;
+
+      //validate name
+      if (name == "") {
+        console.log("Please enter your name")
+        showError("nameErr", "Please enter your name")
+      } else {
+        var regex = /^[a-zA-Z\s]+$/;
+        console.log(regex.test(name))
+        if (regex.test(name) === false) {
+          showError("nameErr", "Please Enter a valid name")
+        } else {
+          showError("nameErr", "")
+          nameErr = false
+        }
+      }
+
+      if (email = "") {
+        showError("emailErr", "Please enter your email adress")
+      } else {
+        var regex = /^\$+@\S+\.\S+$/;
+        if (regex.test(email) === false) {
+          showError("emailErr", "Please enter valid email adress")
+        } else {
+          showError("emailErr", "")
+          nameErr = false
+        }
+      }
+
+      if (programmeErr || passwordErr || emailErr || passwordErr1 || passwordErr2 || true) {
+        return false
+      }
+    }
+  </script> 
 </body>
 
 </html>
